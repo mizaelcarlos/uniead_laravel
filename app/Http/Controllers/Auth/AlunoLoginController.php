@@ -28,7 +28,8 @@ class AlunoLoginController extends Controller
     
         if (Auth::guard('aluno')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
     
-            return redirect()->intended(route('aluno.dashboard'));
+            $request->session()->put('ALUNO_EMAIL', $request->email);
+			return redirect()->intended(route('aluno.dashboard'));
         }
         return back()->withInput($request->only('email', 'remember'));
     }

@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a class="btn btn-outline-success" href="{{route('aluno.atividades')}}" title="Placeholder link title" class="text-decoration-none">
+						Visualizar atividades
+                   
+					</a>
                 </div>
             </div>
         </div>

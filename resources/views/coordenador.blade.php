@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('Veja a lista') }}
+                    <a class="btn btn-outline-success" href="{{route('atividade.index')}}" title="Placeholder link title" class="text-decoration-none">
+						Visualizar atividades
+                   
+					</a>
                 </div>
             </div>
         </div>

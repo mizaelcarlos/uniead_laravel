@@ -22,8 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 Route::prefix('coordenador')->group(function (){
 	//dashboard routes
 	Route::get('/','coordenador\CoordenadorController@index')->name('coordenador.dashboard');
@@ -35,10 +33,7 @@ Route::prefix('coordenador')->group(function (){
 	//logout routes
 	Route::post('/logout','Auth\CoordenadorLoginController@logout')->name('coordenador.logout');
 	
-	//Register routes
-	//Route::get('/register','Auth\CoordenadorRegisterController@showRegistrationForm')->name('coordenador.register');
-	//Route::post('/register','Auth\CoordenadorRegisterController@register')->name('coordenador.register.submit');
-	
+
 	
 });
 
@@ -57,9 +52,17 @@ Route::prefix('aluno')->group(function (){
 	//logout routes
 	Route::post('/logout','Auth\AlunoLoginController@logout')->name('aluno.logout');
 	
-	//Register routes
-	//Route::get('/register','Auth\AlunoRegisterController@showRegistrationForm')->name('aluno.register');
-	//Route::post('/register','Auth\AlunoRegisterController@register')->name('aluno.register.submit');
+	Route::get('/atividades','aluno\AlunoController@atividades')->name('aluno.atividades');
+});
+
+Route::prefix('atividade')->group(function (){
+	//dashboard routes
+	Route::get('/','atividade\AtividadeController@index')->name('atividade.index');
+	Route::get('/vincular_atividade_aluno','atividade\AtividadeController@vincularAtividadeAluno')->name('atividade.vincular_atividade_aluno');
+	Route::get('/nova','atividade\AtividadeController@nova')->name('atividade.nova');
+	Route::post('/cadastrar','atividade\AtividadeController@cadastrar')->name('atividade.cadastrar');
+		
+		
 	
 	
 });

@@ -40,5 +40,10 @@ class Coordenador extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+	
+	public function atividades()
+    {
+       return $this->belongsToMany(Atividade::class);
+    }
 
 }  
