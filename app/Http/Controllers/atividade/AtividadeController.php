@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Atividade;
 use Illuminate\Support\Facades\DB;
+use App\Aluno;
+use Auth;
 
 class AtividadeController extends Controller
 {
@@ -44,27 +46,63 @@ class AtividadeController extends Controller
 
     }
 	
-	public function vincularAtividadeAluno(Request $request){
+	public function vincularAluno($id){
+		
+		$atividade = Atividade::find($id);
+        $alunos = Aluno::All();
+
+        return view('atividade.vincula_atividade_aluno', [
+            'atividade' => $atividade,
+			'alunos' => $alunos
+        ]);
+    }
+	
+	public function vinculaAluno(Request $request){
 
         
-        $alunos_selecionados = $request->alunos_selecionados;
-		$coordenador_id = $request->coordenador_id;
+        $alunos_selecionados = $request->selecionados;
+		$coordenador_id = Auth::user()->id; 
 		$atividade_id = $request->atividade_id;
         
 		if(!empty($alunos_selecionados)){
 
-            $aluno_atividade = DB::table('aluno_atividade')->insert(
-            ['loja' => $filial,
-             'ultimo_envio' => $data_hora,
-             'periodicidade' => $periodicidade,
-             'integracao' => $integracao,
-             'arquivo' => $nome_arquivo]
-        );
+
+			foreach($alunos_selecionados as $aluno_id)
+			{
+				            
+				$aluno_atividade = Aluno::AlunoVinculadoAtividade($aluno_id,$atividade_id);
+				
+				if(empty($aluno_atividade))
+				{
+					var_dump($aluno_atividade);
+					$aluno_atividade = DB::table('aluno_atividade')->insert(
+					['aluno_id' => $aluno_id,
+					 'atividade_id' => $atividade_id,
+					 'coordenador_id' => $coordenador_id]
+					);
+					
+				}
+				else
+				{
+					
+					$aluno_atividade = DB::table('aluno_atividade')
+					->where('aluno_id','=',$aluno_id)
+					->where('atividade_id','=',$atividade_id)
+					->update(
+					['aluno_id' => $aluno_id,
+					 'atividade_id' => $atividade_id,
+					 'coordenador_id' => $coordenador_id]
+					);
+				}
+				
+			}
+			return redirect()->route('atividade.vincular_aluno',$atividade_id)
+							->with('status','Atividade vinculada com sucesso.'.$aluno_atividade[0]);
                     
 		}
 		else{
 
-			return redirect()->route('atividade.index')
+			return redirect()->route('atividade.vincular_aluno',$atividade_id)
 							->with('status','vincule alunos a atividade.');
 
 		}

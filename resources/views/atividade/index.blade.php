@@ -35,7 +35,7 @@
 							 <td>{{ $atividade->nome }}</td>
                             <td>{{ $atividade->data->format('d/m/Y') }}</td>
                             <td>
-                                <a class="btn btn btn-outline-primary" href="{{ route('atividade.vincular_atividade_aluno',$atividade->id) }}">Vincular atividade</a>
+                                <a class="btn btn btn-outline-primary" href="{{ route('atividade.vincular_aluno',$atividade->id) }}">Vincular atividade</a>
     
                             </td>
                         </tr>

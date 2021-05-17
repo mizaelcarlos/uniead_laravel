@@ -42,15 +42,5 @@ class Atividade extends Model
        return $this->belongsToMany(Coordenador::class);
     }
 	
-	public static function VincularAtividadeAluno($filial, $data_hora, $periodicidade, $integracao,$nome_arquivo){
-
-
-        $log_integracao = DB::table('log_integracao')->insert(
-            ['loja' => $filial,
-             'ultimo_envio' => $data_hora,
-             'periodicidade' => $periodicidade,
-             'integracao' => $integracao,
-             'arquivo' => $nome_arquivo]
-        );
-    }
+	
 }

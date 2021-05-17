@@ -5,6 +5,8 @@ namespace App\Http\Controllers\aluno;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use App\Aluno;
 
 class AlunoController extends Controller
 {
@@ -22,15 +24,13 @@ class AlunoController extends Controller
 	public function atividades()
 	{
 		
-		$atividades = DB::table('aluno')
-            ->join('aluno_atividade', 'aluno.id', '=', 'aluno_atividade.aluno_id')
-            ->join('atividade', 'atividade.id', '=', 'aluno_atividade.atividade_id')
-			->where('aluno.email','=',Request::session()->get('ALUNO_EMAIL'))
-            ->select('atividade.*')
-            ->get();
+		$user_id = Auth::user()->id; 
+		
+		$atividades = Aluno::obterAtividadesAluno($user_id);
 			
 		return view('atividade.aluno_atividades_index',[
-            'atividades' => $atividades
+            'atividades' => $atividades,
+			'user' => $user_id,
         ]);
 	}
 }

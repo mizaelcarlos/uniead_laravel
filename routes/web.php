@@ -53,6 +53,7 @@ Route::prefix('aluno')->group(function (){
 	Route::post('/logout','Auth\AlunoLoginController@logout')->name('aluno.logout');
 	
 	Route::get('/atividades','aluno\AlunoController@atividades')->name('aluno.atividades');
+	Route::get('/atividades','aluno\AlunoController@atividades')->name('aluno.atividades');
 });
 
 Route::prefix('atividade')->group(function (){
@@ -61,6 +62,8 @@ Route::prefix('atividade')->group(function (){
 	Route::get('/vincular_atividade_aluno','atividade\AtividadeController@vincularAtividadeAluno')->name('atividade.vincular_atividade_aluno');
 	Route::get('/nova','atividade\AtividadeController@nova')->name('atividade.nova');
 	Route::post('/cadastrar','atividade\AtividadeController@cadastrar')->name('atividade.cadastrar');
+	Route::get('/vincular_aluno/{atividade}','atividade\AtividadeController@vincularAluno')->name('atividade.vincular_aluno');
+	Route::post('/vincula_aluno','atividade\AtividadeController@vinculaAluno')->name('atividade.vincula_aluno');
 		
 		
 	

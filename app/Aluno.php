@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class Aluno extends Authenticatable
 {
@@ -47,5 +48,28 @@ class Aluno extends Authenticatable
        return $this->belongsToMany(Atividade::class);
     }
 
+	public static function obterAtividadesAluno($aluno_id)
+	{
+		
+		$atividades = DB::table('aluno')
+            ->join('aluno_atividade', 'aluno.id', '=', 'aluno_atividade.aluno_id')
+            ->join('atividade', 'atividade.id', '=', 'aluno_atividade.atividade_id')
+			->where('aluno.id','=',$aluno_id)
+            ->select('atividade.*')
+            ->get();
+			
+		return $atividades;
+	}
+	
+	public static function AlunoVinculadoAtividade($aluno_id,$atividade_id)
+	{
+		
+		$atividades = DB::connection('mysql')->select("
+		SELECT * FROM aluno_atividade WHERE aluno_id = $aluno_id and atividade_id = $atividade_id");
+		
+			
+			
+		return $atividades;
+	}
     
 }
