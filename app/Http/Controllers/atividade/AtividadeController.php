@@ -70,6 +70,7 @@ class AtividadeController extends Controller
 			foreach($alunos_selecionados as $aluno_id)
 			{
 				            
+				
 				$aluno_atividade = Aluno::AlunoVinculadoAtividade($aluno_id,$atividade_id);
 				
 				if(empty($aluno_atividade))
@@ -96,14 +97,14 @@ class AtividadeController extends Controller
 				}
 				
 			}
-			return redirect()->route('atividade.vincular_aluno',$atividade_id)
-							->with('status','Atividade vinculada com sucesso.'.$aluno_atividade[0]);
+			return redirect()->route('atividade.index')
+							->with('status','Atividade vinculada com sucesso.');
                     
 		}
 		else{
 
-			return redirect()->route('atividade.vincular_aluno',$atividade_id)
-							->with('status','vincule alunos a atividade.');
+			return redirect()->route('atividade.index')
+							->with('error','Por favor, vincule alunos a atividade.');
 
 		}
 	}

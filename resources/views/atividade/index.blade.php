@@ -10,13 +10,19 @@
 		
     </div>
 </div>
+<div class="container">
 
 @if(session()->has('status'))
-   <div class="alert alert-danger" role="alert">   
+   <div class="alert alert-success" role="alert">   
         <p>{{session()->get('status')}}</p>
+   </div>
+@endif
+@if(session()->has('error'))
+	<div class="alert alert-danger" role="alert">   
+		<p>{{session()->get('error')}}</p>
     </div>
 @endif
-
+</div>
 
 <div class="container">
         <div class="col-md-12">
