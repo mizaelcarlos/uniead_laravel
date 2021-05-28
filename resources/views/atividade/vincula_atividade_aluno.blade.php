@@ -30,7 +30,9 @@
 										<label for="descricao" class="control-label">{{ 'Descrição' }}</label>
 										<textarea class="form-control" id="descricao" name="descricao"   rows="3" required disabled>{{ $atividade->descricao }}</textarea>
 									</div>
-                                
+                                    <div class="form-group col-md-12">
+                                        <label for="alunos" class="control-label">{{ 'Alunos:' }}</label>
+                                    </div>
                                     @foreach($alunos as $aluno)
 
 									<div class="form-group col-md-12" class="form-check"> 
